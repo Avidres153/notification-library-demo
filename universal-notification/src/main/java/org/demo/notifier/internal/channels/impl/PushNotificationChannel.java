@@ -3,30 +3,32 @@ package org.demo.notifier.internal.channels.impl;
 import org.demo.notifier.internal.model.dto.ChannelConfiguration;
 import org.demo.notifier.internal.model.dto.DeliveryRequestRecord;
 import org.demo.notifier.internal.model.dto.NotificationResultDto;
-import org.demo.notifier.internal.model.dto.infrastructure.SmsPayloadDto;
+import org.demo.notifier.internal.model.dto.infrastructure.PushNotificationPayload;
 import org.demo.notifier.internal.service.NotificationChannel;
-import org.demo.notifier.internal.service.SmsProvider;
+import org.demo.notifier.internal.service.PushNotificationProvider;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
-public class SmsChannel implements NotificationChannel {
+public class PushNotificationChannel implements NotificationChannel {
 
-    private static final Logger logger = LoggerFactory.getLogger(SmsChannel.class);
+    private static final Logger logger = LoggerFactory.getLogger(PushNotificationChannel.class);
     private final ChannelConfiguration channelConfiguration;
-    private final SmsProvider smsProvider;
+    private final PushNotificationProvider provider;
 
-    public SmsChannel(ChannelConfiguration channelConfiguration, SmsProvider smsProvider) {
+    public PushNotificationChannel(ChannelConfiguration channelConfiguration, PushNotificationProvider provider) {
         this.channelConfiguration = channelConfiguration;
-        this.smsProvider = smsProvider;
+        this.provider = provider;
     }
 
     @Override
     public NotificationResultDto send(DeliveryRequestRecord requestRecord) {
-
         try {
             validateRequest(requestRecord);
-            SmsPayloadDto smsPayload = SmsPayloadDto.fromRequestRecord(requestRecord);
-            return smsProvider.send(smsPayload);
+
+            PushNotificationPayload pushNotificationPayload = PushNotificationPayload.fromRequestRecord(requestRecord);
+
+            return provider.send(pushNotificationPayload);
+
         } catch (Exception e) {
             logger.error(e.getMessage());
             throw new RuntimeException(e);
@@ -35,7 +37,6 @@ public class SmsChannel implements NotificationChannel {
     }
 
     private void validateRequest(DeliveryRequestRecord requestRecord) {
-
         if (logger.isInfoEnabled()) {
             logger.info(" ---> Validating request");
         }
