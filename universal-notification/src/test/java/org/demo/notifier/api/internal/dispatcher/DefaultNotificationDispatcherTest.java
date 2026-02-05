@@ -50,7 +50,7 @@ public class DefaultNotificationDispatcherTest {
         // given
         List<String> toList = new ArrayList<>();
         toList.add("email@test.com");
-        DeliveryRequestRecord request = TestUtils.createGenericRequest(toList,0,new ArrayList<>(),"local-server@test.com", PriorityType.LOW);
+        DeliveryRequestRecord request = TestUtils.createGenericRequest(toList,0,new ArrayList<>(),"local-server@test.com", PriorityType.LOW, ChannelType.EMAIL);
         NotificationResultDto success = NotificationResultDto.success("id-1");
 
         // channel configuration
@@ -75,7 +75,7 @@ public class DefaultNotificationDispatcherTest {
         // given
         List<String> toList = new ArrayList<>();
         toList.add("email@test.com");
-        DeliveryRequestRecord request = TestUtils.createGenericRequest(toList,3,new ArrayList<>(),"local-server@test.com", PriorityType.LOW);
+        DeliveryRequestRecord request = TestUtils.createGenericRequest(toList,3,new ArrayList<>(),"local-server@test.com", PriorityType.LOW, ChannelType.EMAIL);
 
         // channel configuration
         ChannelConfiguration emailConfig = TestUtils.configureChannel(true, false);

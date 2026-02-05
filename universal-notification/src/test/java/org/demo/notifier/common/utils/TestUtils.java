@@ -14,7 +14,7 @@ import java.util.UUID;
 
 public class TestUtils {
 
-    public static DeliveryRequestRecord createGenericRequest(List<String> toList, int retries, List<Object> attachments, String from, PriorityType priority) {
+    public static DeliveryRequestRecord createGenericRequest(List<String> toList, int retries, List<Object> attachments, String from, PriorityType priority, ChannelType channelType) {
         NotificationContentDto notificationContentDto = new NotificationContentDto.Builder()
                 .setHeader("title")
                 .setBody("test message")
@@ -35,7 +35,7 @@ public class TestUtils {
                 .setPriority(priority)
                 .setRetriesNumber(retries)
                 .build();
-        return new DeliveryRequestRecord(notificationDto, destinationDto, deliveryPoliciesDto, ChannelType.EMAIL);
+        return new DeliveryRequestRecord(notificationDto, destinationDto, deliveryPoliciesDto, channelType);
     }
 
     public static ChannelConfiguration configureChannel(boolean allowRetries, boolean allowAttachments) {

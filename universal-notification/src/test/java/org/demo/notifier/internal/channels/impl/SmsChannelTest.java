@@ -5,6 +5,7 @@ import org.demo.notifier.internal.model.dto.domain.ChannelConfiguration;
 import org.demo.notifier.internal.model.dto.domain.DeliveryRequestRecord;
 import org.demo.notifier.internal.model.dto.domain.NotificationResultDto;
 import org.demo.notifier.internal.model.dto.infrastructure.SmsPayloadDto;
+import org.demo.notifier.internal.model.enums.ChannelType;
 import org.demo.notifier.internal.model.enums.PriorityType;
 import org.demo.notifier.internal.service.SmsProvider;
 import org.junit.jupiter.api.Test;
@@ -38,7 +39,7 @@ public class SmsChannelTest {
         // Given
         ChannelConfiguration config = TestUtils.configureChannel(true, false);
         smsChannel = new SmsChannel(config, smsProvider);
-        DeliveryRequestRecord request = TestUtils.createGenericRequest(List.of("1234567890"), 1, Collections.emptyList(), "0987654", PriorityType.LOW);
+        DeliveryRequestRecord request = TestUtils.createGenericRequest(List.of("1234567890"), 1, Collections.emptyList(), "0987654", PriorityType.LOW, ChannelType.SMS);
         NotificationResultDto expectedResult = NotificationResultDto.success("sms-sent-id");
 
         when(smsProvider.send(any(SmsPayloadDto.class))).thenReturn(expectedResult);
@@ -56,7 +57,7 @@ public class SmsChannelTest {
         // Given
         ChannelConfiguration config = TestUtils.configureChannel(false, false);
         smsChannel = new SmsChannel(config, smsProvider);
-        DeliveryRequestRecord request = TestUtils.createGenericRequest(List.of("1234567890"), 0, List.of("attachment"), "0987654", PriorityType.LOW);
+        DeliveryRequestRecord request = TestUtils.createGenericRequest(List.of("1234567890"), 0, List.of("attachment"), "0987654", PriorityType.LOW, ChannelType.SMS);
 
         RuntimeException exception = assertThrows(RuntimeException.class, () -> smsChannel.send(request));
         assertNotNull(exception);
@@ -68,7 +69,7 @@ public class SmsChannelTest {
         // Given
         ChannelConfiguration config = TestUtils.configureChannel(false, false);
         smsChannel = new SmsChannel(config, smsProvider);
-        DeliveryRequestRecord request = TestUtils.createGenericRequest(List.of("1234567890"), 1, Collections.emptyList(), "0987654", PriorityType.LOW);
+        DeliveryRequestRecord request = TestUtils.createGenericRequest(List.of("1234567890"), 1, Collections.emptyList(), "0987654", PriorityType.LOW, ChannelType.SMS);
 
         RuntimeException exception = assertThrows(RuntimeException.class, () -> smsChannel.send(request));
         assertNotNull(exception);
@@ -80,7 +81,7 @@ public class SmsChannelTest {
         // Given
         ChannelConfiguration config = TestUtils.configureChannel(true, false);
         smsChannel = new SmsChannel(config, smsProvider);
-        DeliveryRequestRecord request = TestUtils.createGenericRequest(List.of("1234567890"), 0, Collections.emptyList(), "0987654", PriorityType.LOW);
+        DeliveryRequestRecord request = TestUtils.createGenericRequest(List.of("1234567890"), 0, Collections.emptyList(), "0987654", PriorityType.LOW, ChannelType.SMS);
 
         RuntimeException exception = assertThrows(RuntimeException.class, () -> smsChannel.send(request));
         assertNotNull(exception);
@@ -92,7 +93,7 @@ public class SmsChannelTest {
         // Given
         ChannelConfiguration config = new ChannelConfiguration.Builder().build();
         smsChannel = new SmsChannel(config, smsProvider);
-        DeliveryRequestRecord request = TestUtils.createGenericRequest(List.of("1234567890"), 0, Collections.emptyList(), "0987654", PriorityType.LOW);
+        DeliveryRequestRecord request = TestUtils.createGenericRequest(List.of("1234567890"), 0, Collections.emptyList(), "0987654", PriorityType.LOW, ChannelType.SMS);
         String expectedErrorMessage = "Payload creation failed";
 
         try (MockedStatic<SmsPayloadDto> mockedPayload = Mockito.mockStatic(SmsPayloadDto.class)) {
@@ -109,7 +110,7 @@ public class SmsChannelTest {
         // Given
         ChannelConfiguration config = new ChannelConfiguration.Builder().build();
         smsChannel = new SmsChannel(config, smsProvider);
-        DeliveryRequestRecord request = TestUtils.createGenericRequest(List.of("1234567890"), 0, Collections.emptyList(), "0987654", PriorityType.LOW);
+        DeliveryRequestRecord request = TestUtils.createGenericRequest(List.of("1234567890"), 0, Collections.emptyList(), "0987654", PriorityType.LOW, ChannelType.SMS);
         String expectedErrorMessage = "SMS provider failed";
 
         when(smsProvider.send(any(SmsPayloadDto.class))).thenThrow(new RuntimeException(expectedErrorMessage));

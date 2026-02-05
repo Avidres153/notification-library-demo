@@ -5,6 +5,7 @@ import org.demo.notifier.internal.model.dto.domain.ChannelConfiguration;
 import org.demo.notifier.internal.model.dto.domain.DeliveryRequestRecord;
 import org.demo.notifier.internal.model.dto.domain.NotificationResultDto;
 import org.demo.notifier.internal.model.dto.infrastructure.PushNotificationPayload;
+import org.demo.notifier.internal.model.enums.ChannelType;
 import org.demo.notifier.internal.model.enums.PriorityType;
 import org.demo.notifier.internal.service.PushNotificationProvider;
 import org.junit.jupiter.api.Test;
@@ -38,7 +39,7 @@ public class PushNotificationChannelTest {
         // Given
         ChannelConfiguration config = TestUtils.configureChannel(true, false);
         pushNotificationChannel = new PushNotificationChannel(config, pushNotificationProvider);
-        DeliveryRequestRecord request = TestUtils.createGenericRequest(List.of("device-token"), 1, Collections.emptyList(), "local-device", PriorityType.LOW);
+        DeliveryRequestRecord request = TestUtils.createGenericRequest(List.of("device-token"), 1, Collections.emptyList(), "local-device", PriorityType.LOW, ChannelType.PUSH_NOTIFICATION);
         NotificationResultDto expectedResult = NotificationResultDto.success("push-sent-id");
 
         when(pushNotificationProvider.send(any(PushNotificationPayload.class))).thenReturn(expectedResult);
@@ -58,7 +59,7 @@ public class PushNotificationChannelTest {
         // Given
         ChannelConfiguration config = TestUtils.configureChannel(false, false);
         pushNotificationChannel = new PushNotificationChannel(config, pushNotificationProvider);
-        DeliveryRequestRecord request = TestUtils.createGenericRequest(List.of("device-token"), 0, List.of("attachment"), "local-device", PriorityType.LOW);
+        DeliveryRequestRecord request = TestUtils.createGenericRequest(List.of("device-token"), 0, List.of("attachment"), "local-device", PriorityType.LOW, ChannelType.PUSH_NOTIFICATION);
 
         // When & Then
         RuntimeException exception = assertThrows(RuntimeException.class, () -> pushNotificationChannel.send(request));
@@ -71,7 +72,7 @@ public class PushNotificationChannelTest {
         // Given
         ChannelConfiguration config = TestUtils.configureChannel(false, false);
         pushNotificationChannel = new PushNotificationChannel(config, pushNotificationProvider);
-        DeliveryRequestRecord request = TestUtils.createGenericRequest(List.of("device-token"), 1, Collections.emptyList(), "local-device", PriorityType.LOW);
+        DeliveryRequestRecord request = TestUtils.createGenericRequest(List.of("device-token"), 1, Collections.emptyList(), "local-device", PriorityType.LOW, ChannelType.PUSH_NOTIFICATION);
 
         // When & Then
         RuntimeException exception = assertThrows(RuntimeException.class, () -> pushNotificationChannel.send(request));
@@ -84,7 +85,7 @@ public class PushNotificationChannelTest {
         // Given
         ChannelConfiguration config = TestUtils.configureChannel(true, false);
         pushNotificationChannel = new PushNotificationChannel(config, pushNotificationProvider);
-        DeliveryRequestRecord request = TestUtils.createGenericRequest(List.of("device-token"), 0, Collections.emptyList(), "local-device", PriorityType.LOW);
+        DeliveryRequestRecord request = TestUtils.createGenericRequest(List.of("device-token"), 0, Collections.emptyList(), "local-device", PriorityType.LOW, ChannelType.PUSH_NOTIFICATION);
 
         // When & Then
         RuntimeException exception = assertThrows(RuntimeException.class, () -> pushNotificationChannel.send(request));
@@ -97,7 +98,7 @@ public class PushNotificationChannelTest {
         // Given
         ChannelConfiguration config = new ChannelConfiguration.Builder().build();
         pushNotificationChannel = new PushNotificationChannel(config, pushNotificationProvider);
-        DeliveryRequestRecord request = TestUtils.createGenericRequest(List.of("device-token"), 0, Collections.emptyList(), "local-device", PriorityType.LOW);
+        DeliveryRequestRecord request = TestUtils.createGenericRequest(List.of("device-token"), 0, Collections.emptyList(), "local-device", PriorityType.LOW, ChannelType.PUSH_NOTIFICATION);
         String expectedErrorMessage = "Payload creation failed";
 
         try (MockedStatic<PushNotificationPayload> mockedPayload = Mockito.mockStatic(PushNotificationPayload.class)) {
@@ -115,7 +116,7 @@ public class PushNotificationChannelTest {
         // Given
         ChannelConfiguration config = new ChannelConfiguration.Builder().build();
         pushNotificationChannel = new PushNotificationChannel(config, pushNotificationProvider);
-        DeliveryRequestRecord request = TestUtils.createGenericRequest(List.of("device-token"), 0, Collections.emptyList(), "local-device", PriorityType.LOW);
+        DeliveryRequestRecord request = TestUtils.createGenericRequest(List.of("device-token"), 0, Collections.emptyList(), "local-device", PriorityType.LOW, ChannelType.PUSH_NOTIFICATION);
         String expectedErrorMessage = "Push provider failed";
 
         when(pushNotificationProvider.send(any(PushNotificationPayload.class))).thenThrow(new RuntimeException(expectedErrorMessage));

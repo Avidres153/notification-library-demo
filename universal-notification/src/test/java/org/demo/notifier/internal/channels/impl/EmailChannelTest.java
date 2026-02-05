@@ -5,6 +5,7 @@ import org.demo.notifier.internal.model.dto.domain.ChannelConfiguration;
 import org.demo.notifier.internal.model.dto.domain.DeliveryRequestRecord;
 import org.demo.notifier.internal.model.dto.domain.NotificationResultDto;
 import org.demo.notifier.internal.model.dto.infrastructure.EmailPayloadDto;
+import org.demo.notifier.internal.model.enums.ChannelType;
 import org.demo.notifier.internal.model.enums.PriorityType;
 import org.demo.notifier.internal.service.EmailProvider;
 import org.junit.jupiter.api.Test;
@@ -39,7 +40,7 @@ public class EmailChannelTest {
         // Given
         ChannelConfiguration config = TestUtils.configureChannel(true, true);
         emailChannel = new EmailChannel(config, emailProvider);
-        DeliveryRequestRecord request = TestUtils.createGenericRequest(List.of("test@test.com"), 1, Collections.emptyList(), "local-server@test.com", PriorityType.LOW);
+        DeliveryRequestRecord request = TestUtils.createGenericRequest(List.of("test@test.com"), 1, Collections.emptyList(), "local-server@test.com", PriorityType.LOW, ChannelType.EMAIL);
         NotificationResultDto expectedResult = NotificationResultDto.success("id-001");
 
         when(emailProvider.send(any(EmailPayloadDto.class))).thenReturn(expectedResult);
@@ -57,7 +58,7 @@ public class EmailChannelTest {
         // Given
         ChannelConfiguration config = TestUtils.configureChannel(false, false);
         emailChannel = new EmailChannel(config, emailProvider);
-        DeliveryRequestRecord request = TestUtils.createGenericRequest(List.of("test@test.com"), 0, List.of("attachment"), "local-server@test.com", PriorityType.LOW);
+        DeliveryRequestRecord request = TestUtils.createGenericRequest(List.of("test@test.com"), 0, List.of("attachment"), "local-server@test.com", PriorityType.LOW, ChannelType.EMAIL);
 
         RuntimeException exception = assertThrows(RuntimeException.class, () -> emailChannel.send(request));
         assertNotNull(exception);
@@ -69,7 +70,7 @@ public class EmailChannelTest {
         // Given
         ChannelConfiguration config = TestUtils.configureChannel(false, false);
         emailChannel = new EmailChannel(config, emailProvider);
-        DeliveryRequestRecord request = TestUtils.createGenericRequest(List.of("test@test.com"), 1, Collections.emptyList(), "local-server@test.com", PriorityType.LOW);
+        DeliveryRequestRecord request = TestUtils.createGenericRequest(List.of("test@test.com"), 1, Collections.emptyList(), "local-server@test.com", PriorityType.LOW, ChannelType.EMAIL);
 
         RuntimeException exception = assertThrows(RuntimeException.class, () -> emailChannel.send(request));
         assertNotNull(exception);
@@ -81,7 +82,7 @@ public class EmailChannelTest {
         // Given
         ChannelConfiguration config = TestUtils.configureChannel(true, false);
         emailChannel = new EmailChannel(config, emailProvider);
-        DeliveryRequestRecord request = TestUtils.createGenericRequest(List.of("test@test.com"), 0, Collections.emptyList(), "local-server@test.com", PriorityType.LOW);
+        DeliveryRequestRecord request = TestUtils.createGenericRequest(List.of("test@test.com"), 0, Collections.emptyList(), "local-server@test.com", PriorityType.LOW, ChannelType.EMAIL);
 
         RuntimeException exception = assertThrows(RuntimeException.class, () -> emailChannel.send(request));
         assertNotNull(exception);
@@ -93,7 +94,7 @@ public class EmailChannelTest {
         // Given
         ChannelConfiguration config = new ChannelConfiguration.Builder().build();
         emailChannel = new EmailChannel(config, emailProvider);
-        DeliveryRequestRecord request = TestUtils.createGenericRequest(List.of("test@test.com"), 0, Collections.emptyList(), "local-server@test.com", PriorityType.LOW);
+        DeliveryRequestRecord request = TestUtils.createGenericRequest(List.of("test@test.com"), 0, Collections.emptyList(), "local-server@test.com", PriorityType.LOW, ChannelType.EMAIL);
         String expectedErrorMessage = "Payload creation failed";
 
         try (MockedStatic<EmailPayloadDto> mockedPayload = Mockito.mockStatic(EmailPayloadDto.class)) {
@@ -110,7 +111,7 @@ public class EmailChannelTest {
         // Given
         ChannelConfiguration config = new ChannelConfiguration.Builder().build();
         emailChannel = new EmailChannel(config, emailProvider);
-        DeliveryRequestRecord request = TestUtils.createGenericRequest(List.of("test@test.com"), 0, Collections.emptyList(), "local-server@test.com", PriorityType.LOW);
+        DeliveryRequestRecord request = TestUtils.createGenericRequest(List.of("test@test.com"), 0, Collections.emptyList(), "local-server@test.com", PriorityType.LOW, ChannelType.EMAIL);
         String expectedErrorMessage = "Email provider failed";
 
         when(emailProvider.send(any(EmailPayloadDto.class))).thenThrow(new RuntimeException(expectedErrorMessage));
