@@ -1,0 +1,5 @@
+services:
+  customer_app:
+    image: send-notification-microservice
+    ports:
+      - "8081:8080"
