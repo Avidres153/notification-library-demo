@@ -38,5 +38,9 @@ public class SmsChannel implements NotificationChannel {
         if (!channelConfiguration.allowRetries() && requestRecord.digitalDeliveryPolicies().retriesNumber() > 0) {
             throw new RuntimeException("This channel not supports retries");
         }
+
+        if(channelConfiguration.allowRetries() && requestRecord.digitalDeliveryPolicies().retriesNumber() <= 0){
+            throw new RuntimeException("Retries number must be greater than 0");
+        }
     }
 }

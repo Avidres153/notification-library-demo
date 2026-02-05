@@ -13,7 +13,6 @@ public final class DigitalDeliveryPoliciesDto {
         this.timeout = Objects.requireNonNullElse(builder.timeout, 5000);
         this.retriesNumber = Objects.requireNonNullElse(builder.retriesNumber, 0);
         this.priorityType = Objects.requireNonNullElse(builder.priorityType, PriorityType.LOW);
-
     }
 
     public static class Builder{
