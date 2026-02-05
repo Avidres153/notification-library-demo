@@ -1,7 +1,7 @@
 package org.demo.notifier.internal.model.enums;
 
 public enum ChannelType {
-    EMAIL("email"), SMS("sms"), PUSH("push");
+    EMAIL("email"), SMS("sms"), PUSH_NOTIFICATION("push");
 
     public final String status;
 

@@ -1,8 +1,6 @@
 package org.demo.notifier.internal.model.dto.infrastructure;
 
-import org.demo.notifier.internal.model.dto.DeliveryRequestRecord;
-
-import java.util.List;
+import org.demo.notifier.internal.model.dto.domain.DeliveryRequestRecord;
 
 public final class PushNotificationPayload {
 

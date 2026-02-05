@@ -16,6 +16,10 @@ public class DefaultChannelResolver implements ChannelResolver {
 
     @Override
     public NotificationChannel resolve(ChannelType channelType) {
+        if(channelType == null){
+            throw new RuntimeException("Channel type could not be null");
+        }
+
         NotificationChannel result  = notificationChannel.get(channelType);
         if(result == null){
             throw new RuntimeException("Channel not found");

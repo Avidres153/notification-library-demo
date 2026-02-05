@@ -1,7 +1,7 @@
 package org.demo.notifier.api;
 
-import org.demo.notifier.internal.model.dto.DeliveryRequestRecord;
-import org.demo.notifier.internal.model.dto.NotificationResultDto;
+import org.demo.notifier.internal.model.dto.domain.DeliveryRequestRecord;
+import org.demo.notifier.internal.model.dto.domain.NotificationResultDto;
 
 public interface NotificationServiceClient {
 

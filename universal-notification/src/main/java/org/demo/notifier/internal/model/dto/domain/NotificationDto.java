@@ -1,4 +1,4 @@
-package org.demo.notifier.internal.model.dto;
+package org.demo.notifier.internal.model.dto.domain;
 
 public final class NotificationDto {
 

@@ -1,7 +1,7 @@
 package org.demo.notifier.internal.dispatcher;
 
-import org.demo.notifier.internal.model.dto.DeliveryRequestRecord;
-import org.demo.notifier.internal.model.dto.NotificationResultDto;
+import org.demo.notifier.internal.model.dto.domain.DeliveryRequestRecord;
+import org.demo.notifier.internal.model.dto.domain.NotificationResultDto;
 import org.demo.notifier.internal.service.ChannelResolver;
 import org.demo.notifier.internal.service.NotificationChannel;
 import org.demo.notifier.internal.service.NotificationDispatcher;

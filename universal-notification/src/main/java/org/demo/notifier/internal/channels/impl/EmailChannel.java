@@ -1,8 +1,8 @@
 package org.demo.notifier.internal.channels.impl;
 
-import org.demo.notifier.internal.model.dto.ChannelConfiguration;
-import org.demo.notifier.internal.model.dto.DeliveryRequestRecord;
-import org.demo.notifier.internal.model.dto.NotificationResultDto;
+import org.demo.notifier.internal.model.dto.domain.ChannelConfiguration;
+import org.demo.notifier.internal.model.dto.domain.DeliveryRequestRecord;
+import org.demo.notifier.internal.model.dto.domain.NotificationResultDto;
 import org.demo.notifier.internal.model.dto.infrastructure.EmailPayloadDto;
 import org.demo.notifier.internal.service.EmailProvider;
 import org.demo.notifier.internal.service.NotificationChannel;

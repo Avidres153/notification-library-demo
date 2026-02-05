@@ -1,4 +1,4 @@
-package org.demo.notifier.internal.model.dto;
+package org.demo.notifier.internal.model.dto.domain;
 
 import java.util.List;
 import java.util.Objects;

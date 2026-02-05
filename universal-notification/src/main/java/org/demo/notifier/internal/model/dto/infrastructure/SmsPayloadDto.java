@@ -1,6 +1,6 @@
 package org.demo.notifier.internal.model.dto.infrastructure;
 
-import org.demo.notifier.internal.model.dto.DeliveryRequestRecord;
+import org.demo.notifier.internal.model.dto.domain.DeliveryRequestRecord;
 
 import java.util.List;
 import java.util.Objects;
