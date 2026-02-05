@@ -16,15 +16,27 @@ public final class EmailPayloadDto {
 
     public EmailPayloadDto(Builder builder) {
         this.to = builder.to;
-                this.from = builder.from;
+        this.from = builder.from;
         this.copyTo = builder.copyTo;
-                this.hiddenCopyTo = builder.hiddenCopyTo;
+        this.hiddenCopyTo = builder.hiddenCopyTo;
         this.subject = builder.subject;
-                this.body = builder.body;
+        this.body = builder.body;
         this.attachments = builder.attachments;
     }
 
-    public static class Builder{
+    public static EmailPayloadDto fromRequestRecord(DeliveryRequestRecord requestRecord) {
+        return new EmailPayloadDto.Builder()
+                .setTo(requestRecord.destination().to())
+                .setFrom(requestRecord.destination().from())
+                .setCopyTo(requestRecord.destination().hiddenCopyTo())
+                .setHiddenCopyTo(requestRecord.destination().hiddenCopyTo())
+                .setSubject(requestRecord.notification().notificationContent().header())
+                .setBody(requestRecord.notification().notificationContent().body())
+                .setAttachments(requestRecord.notification().notificationContent().attachments())
+                .build();
+    }
+
+    public static class Builder {
         private List<String> to;
         private String from;
         private List<String> copyTo;
@@ -68,18 +80,8 @@ public final class EmailPayloadDto {
             return this;
         }
 
-        public EmailPayloadDto build(){return new EmailPayloadDto(this);}
-    }
-
-    public static EmailPayloadDto fromRequestRecord(DeliveryRequestRecord requestRecord) {
-        return new EmailPayloadDto.Builder()
-                .setTo(requestRecord.destination().to())
-                .setFrom(requestRecord.destination().from())
-                .setCopyTo(requestRecord.destination().hiddenCopyTo())
-                .setHiddenCopyTo(requestRecord.destination().hiddenCopyTo())
-                .setSubject(requestRecord.notification().notificationContent().header())
-                .setBody(requestRecord.notification().notificationContent().body())
-                .setAttachments(requestRecord.notification().notificationContent().attachments())
-                .build();
+        public EmailPayloadDto build() {
+            return new EmailPayloadDto(this);
+        }
     }
 }
