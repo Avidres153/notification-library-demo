@@ -1,0 +1,39 @@
+{
+  "info": {
+    "_postman_id": "5c01d21e-c21d-46c1-bb83-def29d894eca",
+    "name": "notification-library-example",
+    "schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+    "_exporter_id": "3504143"
+  },
+  "item": [
+    {
+      "name": "Send Email Notification",
+      "request": {
+        "method": "POST",
+        "header": [],
+        "body": {
+          "mode": "raw",
+          "raw": "{\n    \"to\": [\n        \"example@test.com\"\n    ],\n    \"from\": \"local@test.com\",\n    \"subject\": \"Email notification\",\n    \"body\": \"Example to send email notification\",\n    \"attachments\": [\n        \"http://attachment/imag.jpg\"\n    ]\n}",
+          "options": {
+            "raw": {
+              "language": "json"
+            }
+          }
+        },
+        "url": {
+          "raw": "http://localhost:8081/notifications/email",
+          "protocol": "http",
+          "host": [
+            "localhost"
+          ],
+          "port": "8081",
+          "path": [
+            "notifications",
+            "email"
+          ]
+        }
+      },
+      "response": []
+    }
+  ]
+}
